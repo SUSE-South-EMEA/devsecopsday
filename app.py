@@ -25,6 +25,14 @@ def db_query():
     rv = cur.fetchone()
     return str(rv)
 
+@app.route('/forbidden')
+def forbidden_url():
+    try:
+        response = requests.get('http://www.example.com')
+        return response.text
+    except Exception as e:
+        return str(e)
+
 def init_db():
     cur.execute('CREATE TABLE IF NOT EXISTS mytable (id INT AUTO_INCREMENT PRIMARY KEY, data VARCHAR(255) NOT NULL)')
     cur.execute('SELECT * FROM mytable')
